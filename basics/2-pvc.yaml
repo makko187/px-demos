@@ -1,11 +1,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pure-claim-file-v3
+  name: pvcsc001
+  annotations:
+    volume.beta.kubernetes.io/storage-class: portworx-sc
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-     storage: 10Gi
-  storageClassName: portworx-pso-fb-v3
+      storage: 1Gi
