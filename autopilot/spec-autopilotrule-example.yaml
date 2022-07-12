@@ -26,4 +26,4 @@ spec:
       # resize volume by scalepercentage of current size
       scalepercentage: "100"
       # volume capacity should not exceed 400GiB
-      maxsize: "400Gi"
+      maxsize: "40Gi"
