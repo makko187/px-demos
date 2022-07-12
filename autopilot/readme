@@ -1,0 +1,19 @@
+#Apply specs
+
+#Once you’ve designed your specs, deploy them.
+
+kubectl apply -f spec-autopilotrule-example.yaml
+kubectl apply -f 1-namespaces.yaml
+kubectl apply -f 2-postgres-sc.yaml
+kubectl apply -f 3-postgres-vol.yaml -n pg1
+kubectl apply -f 3-postgres-vol.yaml -n pg2
+kubectl apply -f 4-postgres-app.yaml -n pg1
+kubectl apply -f 4-postgres-app.yaml -n pg2
+
+#Monitor
+
+#Notice that the pgbench pods in the pg1 and pg2 namespace will start filling up the pgbench-data PVCs. As the PVC usage starts exceeding 50%, Autopilot will resize the PVCs.
+
+#You can use the following command to get all the events generated for the volume-resize rule:
+
+kubectl get events --field-selector involvedObject.kind=AutopilotRule,involvedObject.name=volume-resize --all-namespaces --sort-by .lastTimes
