@@ -24,6 +24,6 @@ spec:
   - name: openstorage.io.action.volume/resize
     params:
       # resize volume by scalepercentage of current size
-      scalepercentage: "100"
+      scalepercentage: "50"
       # volume capacity should not exceed 400GiB
       maxsize: "40Gi"
