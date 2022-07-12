@@ -1,0 +1,10 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: sc-portworx-fa-direct-access
+provisioner: pxd.portworx.com
+parameters:
+  backend: "pure_block"
+  max_iops: "1000"
+  max_bandwidth: "1G"
+allowVolumeExpansion: true

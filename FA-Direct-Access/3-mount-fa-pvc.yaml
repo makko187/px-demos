@@ -1,0 +1,19 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  volumes:
+  - name: pure-vol
+    persistentVolumeClaim:
+      claimName: pure-claim-block
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: pure-vol
+      mountPath: /data
+    ports:
+    - containerPort: 80

@@ -1,0 +1,12 @@
+#If you do not see your VolumeSnapshot when you run kubectl get volumesnapshot, run kubectl get crd to get the full path of the CRD, then use that full path in your kubectl get command. For example:
+
+kubectl get volumesnapshots.snapshot.storage.k8s.io
+
+#Expand a PVC
+#To expand a PVC of a FlashArray direct access volume, run the command kubectl edit pvc <pvcName>, then change the size in the spec.
+
+
+#Delete a PVC
+#To delete a PVC of a FlashArray direct access volume, use the following command:
+
+kubectl delete pvc <pvcName>

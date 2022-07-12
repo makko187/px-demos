@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-clone
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: sc-portworx-fa-direct-access
+  dataSource:
+    kind: PersistentVolumeClaim
+    name: pure-claim-block
+    apiGroup: snapshot.storage.k8s.io
