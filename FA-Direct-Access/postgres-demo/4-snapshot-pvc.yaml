@@ -1,0 +1,19 @@
+kind: VolumeSnapshotClass
+apiVersion: snapshot.storage.k8s.io/v1
+metadata:
+   name: px-fa-direct-access-snapshotclass
+   annotations:
+      snapshot.storage.kubernetes.io/is-default-class: "true"
+driver: pxd.portworx.com
+deletionPolicy: Delete
+
+---
+
+kind: VolumeSnapshot
+apiVersion: snapshot.storage.k8s.io/v1
+metadata:
+  name: volumesnapshot-of-postgres-data
+spec:
+  volumeSnapshotClassName: px-fa-direct-access-snapshotclass
+  source:
+    persistentVolumeClaimName: postgres-data

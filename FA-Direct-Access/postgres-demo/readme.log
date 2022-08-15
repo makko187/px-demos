@@ -1,0 +1,58 @@
+Short Procedure using my LAB:
+
+1.	Start postgres app
+	
+	kubectl apply -f 1-postgres-db.yaml
+
+2.	Start postgres web frontend
+	
+	kubectl apply -f 2-k8s-webapp.yaml
+
+3.	Add Data by going to browser and add K8 logos
+	
+	kubctl get svc
+
+4.	Clone PVC
+        
+        kubectl apply -f 3-clone-fa-pvc.yaml
+
+5.	Check space use in the POD (postgres)
+
+	kubectl exec postgres-86bd79469b-r65z4 -- df -h
+
+	/dev/pxd/pxd842762816152937533  4.9G   59M  4.6G   2% /var/lib/postgresql/data
+
+6.	Increase Postgres clone to 10G
+
+	kubectl edit pvc pvc-clone
+
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: px-postgres-sc
+  volumeMode: Filesystem
+  volumeName: pvc-aa369cdc-f09d-4df2-96e2-8fa8df447733
+
+7.	Goto GUI and count the ds: number = 51
+
+8.	Trigger Snapshot
+
+	kubectl apply -f 4-snapshot-pvc.yaml
+	kubectl get volumesnapshot
+	kubectl get volumesnapshotdatas
+
+9.	Assume Data was corrupted
+
+	kubectl delete -f 1-postgres-db.yaml
+
+10.	Clone Snapshot to a PVC
+
+	kubectl apply -f 5-restore-snapshot.yaml
+
+11.	Restore DB from snapshot
+
+	kubectl apply -f 6-postgres-restore.yaml
+
