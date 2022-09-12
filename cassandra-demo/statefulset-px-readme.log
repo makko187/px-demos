@@ -26,7 +26,7 @@ UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a
 #5 Modifying the Cassandra StatefulSet
 kubectl edit statefulset cassandra
 
-#change is the replicas field = 4. 
+#change is the replicas field = 2. 
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file will be
 # reopened with the relevant failures.
@@ -43,7 +43,7 @@ metadata:
   resourceVersion: "323"
   uid: 7a219483-6185-11e6-a910-42010a8a0fc0
 spec:
-  replicas: 3
+  replicas: 2
 
 
 #6 Check scaled pods
