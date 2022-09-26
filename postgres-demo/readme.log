@@ -12,17 +12,47 @@ Short Procedure using my LAB:
 	
 	kubctl get svc
 
-4.	Delete postgres pod to simulate pod failures and recovery. Deleting Pods will restart new pods.
+	Optional: check Postgtres Databse
+	 #log into posgres container
+	 POD=`kubectl get pods -l app=postgres | grep Running | grep 1/1 | awk '{print $1}'`
+	 kubectl exec -it $POD -- bash
+	 
+	 #log-in to postgres#
+	 psql -U $POSTGRES_USER
+	 
+	 #change to the postgres database
+	 \c postgres
+	 \d
+	 select * from mywhales;   
 
-	kubectl delete pods <pod>
 
-5.	Check space use in the POD (postgres)
+4.      # See where postgres is running
+	kubectl get po -l app=postgres -o wide
+
+5. 	# Get the postgres node name
+	NODE=`kubectl get pods -l app=postgres -o wide | grep -v NAME | awk '{print $7}'`
+
+6. 	# Cordon the node (apps are no longer allowed on this node)
+	kubectl cordon ${NODE}
+
+7. 	# Get the postgres pod node
+	POD=$(kubectl get pods -l app=postgres -o wide | grep -v NAME | awk '{print $1}')
+
+8. 	# Delete postgres pod to simulate pod failures and recovery. Deleting Pods will restart new pods.
+	kubectl delete pod ${POD}
+
+9. 	# See what node postgres is running on now that its been deleted
+	kubectl get po -l app=postgres -o wide
+
+
+
+10.	Check space use in the POD (postgres)
 
 	kubectl exec postgres-86bd79469b-r65z4 -- df -h
 
 	/dev/pxd/pxd842762816152937533  4.9G   59M  4.6G   2% /var/lib/postgresql/data
 
-6.	Increase Postgres Drive to 10G
+11.	Increase Postgres Drive to 10G
 
 	kubectl edit pvc postgres-data
 
@@ -36,19 +66,19 @@ spec:
   volumeMode: Filesystem
   volumeName: pvc-aa369cdc-f09d-4df2-96e2-8fa8df447733
 
-7.	Goto GUI and count the ds: number = 51
+12.	Goto GUI and count the ds: number = 51
 
-8.	Trigger Snapshot
+13.	Trigger Snapshot
 
 	kubectl apply -f 3-pg-snapshot.yaml
 	kubectl get volumesnapshot
 	kubectl get volumesnapshotdatas
 
-9.	Assume Data was corrupted
+14.	Assume Data was corrupted
 
 	kubectl delete -f 1-postgres-db.yaml
 
-10.	Clone Snapshot to a PVC
+15.	Clone Snapshot to a PVC
 
 	kubectl apply -f 4-pvc-from-snap.yaml
 
