@@ -20,7 +20,7 @@ Short Procedure using my LAB:
 	 #log-in to postgres#
 	 psql -U $POSTGRES_USER
 	 
-	 #change to the postgres database
+	 #change to the postgres database and verify the number of records
 	 \c postgres
 	 \d
 	 select * from mywhales;   
@@ -44,6 +44,8 @@ Short Procedure using my LAB:
 9. 	# See what node postgres is running on now that its been deleted
 	kubectl get po -l app=postgres -o wide
 
+	Next: Verify if the number of records are still the same?
+	Cloud native storage like Portworx is incredibly good at handling failure from Kubernetes because it was designed with Kubernetes in mind.
 
 
 10.	Check space use in the POD (postgres)
