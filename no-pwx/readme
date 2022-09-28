@@ -1,0 +1,10 @@
+test running postgres without kubernetes:
+
+1. Try deploying postgres and test
+2. Check number of logos
+3. Cordon the node and delete the postgres pod
+4. pod will restart in another node
+5. Notice the number of database is empty
+6. Uncordon the node and destory the postgres pod again
+7. The pod should be running on the original node
+8. Notice the logos are back originally
