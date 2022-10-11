@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: iscsi-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+     targetPortal: 10.226.224.140:3260
+     portals: ['192.168.150.80:3260', '10.226.224.141:3260', '10.226.224.145:3260']
+     iqn: iqn.2010-06.com.purestorage:flasharray.24a94793e6ff4a20 
+     lun: 1
+     initiatorName: iqn.1993-08.org.debian:01:k8controller3
+     fsType: 'ext4'
