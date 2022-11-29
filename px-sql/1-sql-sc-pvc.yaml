@@ -4,8 +4,8 @@ metadata:
   name: azure-disk
 provisioner: kubernetes.io/portworx-volume
 parameters:
-  repl: "1"
-
+  repl: "2"
+  shared: "true"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
